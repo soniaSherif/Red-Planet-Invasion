@@ -9,4 +9,10 @@ class Settings:
         self.screen_height = 1080
         #self.bg_color = (156, 46, 53)
         self.bg = pygame.image.load("images/Space_Background1.png")
-        self.ship_speed = 1
+        self.ship_speed = 2.0
+        # Bullet settings
+        self.bullet_speed = 3.0
+        self.bullet_width = 7
+        self.bullet_height = 20
+        self.bullet_color = (255, 43, 0)
+        self.bullets_allowed = 3
