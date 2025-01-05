@@ -39,9 +39,6 @@ class RedPlanetInvasion:
         # Make the Play button.
         self.play_button = Button(self, "Play")
 
-
-
-
     def run_game(self):
         """Start the main loop for the game."""
 
@@ -106,6 +103,8 @@ class RedPlanetInvasion:
         # Reset game statistics.
         self.stats.reset_stats()
         self.scoreboard.prep_score()
+        self.scoreboard.prep_level()
+        self.scoreboard.prep_ships()
         self.game_active = True
 
         # Get rid of any remaining bullets and aliens.
@@ -139,11 +138,15 @@ class RedPlanetInvasion:
             for aliens in collisions.values():
                 self.stats.score += self.settings.alien_points * len(aliens)
             self.scoreboard.prep_score()
+            self.scoreboard.check_high_score()
         if not self.aliens:
             # Destroy existing bullets and create new fleet.
             self.bullets.empty()
             self._create_fleet()
             self.settings.increase_speed()
+            # Increase level.
+            self.stats.level += 1
+            self.scoreboard.prep_level()
 
 
     def _create_fleet(self):
@@ -201,6 +204,7 @@ class RedPlanetInvasion:
         if self.stats.ships_left > 0:
             # Decrement ships left.
             self.stats.ships_left -= 1
+            self.scoreboard.prep_ships()
 
             # Get rid of any remaining aliens and bullets.
             self.aliens.empty()
